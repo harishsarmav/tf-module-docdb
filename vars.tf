@@ -1,4 +1,4 @@
 variable "env" {}
 variable "subnet_ids" {
-  type = list(string)
+  value = aws_subnet.main.*.id
 }
