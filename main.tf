@@ -49,10 +49,10 @@ resource "aws_docdb_cluster" "docdb" {
     { Name = "${var.env}-docdb-cluster"}
   )
 }
-#
-#resource "aws_docdb_cluster_instance" "cluster_instances" {
-#  count              = 2
-#  identifier         = "docdb-cluster-demo-${count.index}"
-#  cluster_identifier = aws_docdb_cluster.default.id
-#  instance_class     = "db.r5.large"
-#}
+
+resource "aws_docdb_cluster_instance" "cluster_instances" {
+  count              = var.number_of_instances
+  identifier         = "${var.env}-docdb-cluster-instance-${count.index}"
+  cluster_identifier = aws_docdb_cluster.default.id
+  instance_class     = var.instance_class
+}
