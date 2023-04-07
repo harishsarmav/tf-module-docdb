@@ -49,10 +49,15 @@ resource "aws_docdb_cluster" "docdb" {
     { Name = "${var.env}-docdb-cluster"}
   )
 }
-#
-#resource "aws_docdb_cluster_instance" "cluster_instances" {
-#  count              = var.number_of_instances
-#  identifier         = "${var.env}-docdb-cluster-instance-${count.index}"
-#  cluster_identifier = aws_docdb_cluster.default.id
-#  instance_class     = var.instance_class
-#}
+
+resource "aws_docdb_cluster_instance" "cluster_instances" {
+  count              = var.number_of_instances
+  identifier         = "${var.env}-docdb-cluster-instance-${count.index}"
+  cluster_identifier = aws_docdb_cluster.default.id
+  instance_class     = var.instance_class
+
+  tags = merge(
+    local.common_tags,
+    { Name = "${var.env}-docdb-cluster-instance-${count.index}" }
+  )
+}
