@@ -58,7 +58,7 @@ resource "aws_docdb_cluster_instance" "cluster_instances" {
   cluster_identifier = aws_docdb_cluster.docdb.id
   instance_class     = var.instance_class
 #  storage_encrypted       = true
-  kms_key_id              = data.aws_kms_key.key.arn
+  kms_key_id              = data.aws_kms_key.key
 
   tags = merge(
     local.common_tags,
